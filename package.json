@@ -1,0 +1,15 @@
+{
+  "name": "db-interaction-service",
+  "version": "1.0.0",
+  "description": "A backend service for interacting with a Cloud Firestore database.",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Philip Krück",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/firestore": "^4.15.1",
+    "nodemon": "^2.0.14"
+  }
+}
