@@ -1,2 +1,2 @@
-# db-interaction-service
+# payment-service
 A service interacting with the Cloudfire Store instance.
