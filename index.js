@@ -7,7 +7,7 @@ const awaitPaymentObserver = awaitPaymentQuery.onSnapshot(snapshot => {
         let doc = change.doc
 
         if (change.type === 'added') {
-            console.log('New transaction: ', doc.data());
+            console.log('new transaction: ', doc.data());
             onNewTransaction(doc);
         }
     });
@@ -17,42 +17,28 @@ const awaitPaymentObserver = awaitPaymentQuery.onSnapshot(snapshot => {
 
 async function onNewTransaction(doc) {
     await listenForWalletTransaction(doc)
-    updateTransactionToMinting(doc);
-    await mintNFT(doc);
-    updateTransactionToMinted(doc)
+    updateTransactionToPaymentReceived(doc);
 }
 
 async function listenForWalletTransaction(doc) {
     let lovelaceAmount = doc.data()['amount_lovelace']
     console.log(`listening for wallet changes for lovelace amount: ${lovelaceAmount}`)
-    const result = await resolveAfter2Seconds();
+    const _ = await resolveAfter5Seconds();
     console.log(`received funds for lovelace amount: ${lovelaceAmount}`);
 }
 
-function updateTransactionToMinting(doc) {
+function updateTransactionToPaymentReceived(doc) {
     let senderWalletAddres = "test_addr1asgasdfasdfjasdgh";
-    doc.ref.update({ minting_state: "minting", sender_wallet_address: senderWalletAddres });
-    console.log(`set minting_state to minting for id: ${doc.id}`);
+    doc.ref.update({ minting_state: "payment_received", sender_wallet_address: senderWalletAddres });
+    console.log(`set minting_state to payment_received for id: ${doc.id}`);
 }
 
-function updateTransactionToMinted(doc) {
-    doc.ref.update({ minting_state: "minted"});
-    console.log(`set minting_state to minted for id: ${doc.id}`);
-}
-
-async function mintNFT(doc) {
-    const res = await doc.ref.get();
-    const senderWalletAddress = res.data()['sender_wallet_address'];
-    console.log(`start minting NFT for wallet address: ${senderWalletAddress}`);
-    resolveAfter2Seconds();
-    console.log('minting NFT completed');
-}
-
-function resolveAfter2Seconds() {
+function resolveAfter5Seconds() {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve('resolved');
-      }, 2000);
+      }, 5000);
     });
-  }
+}
+
   
