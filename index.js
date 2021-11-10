@@ -1,6 +1,6 @@
 const db = require('./firestore');
 
-const awaitPaymentQuery = db.collection('Transactions').where('minting_state', '==', 'await_payment');
+const awaitPaymentQuery = db.collection('transactions').where('minting_state', '==', 'await_payment');
 
 const awaitPaymentObserver = awaitPaymentQuery.onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {

@@ -14,4 +14,4 @@ RUN npm install
 COPY . ./
 
 # run when running the container
-CMD ["npm", "run", "dev"]  # run time
+CMD ["npm", "index.js"]  # run time

@@ -1,8 +1,8 @@
 const Firestore = require('@google-cloud/firestore');
 
 const db = new Firestore({
-  projectId: 'nft-startup-330907',
-  keyFilename: './keys/firestore-key-file.json',
+  projectId: 'tokenflow-io-test',
+  keyFilename: './keys/firestore-key-test.json',
 });
 
 module.exports = db
